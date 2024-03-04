@@ -73,32 +73,3 @@ func ExecuteSchemaSQL(db *sql.DB) {
 		log.Fatal(err)
 	}
 }
-
-func findStands(db *sql.DB, productID int) (mainStand database.Stand, childStands []string, err error) {
-	// Поиск главного стенда
-	err = db.QueryRow("SELECT id, name FROM Stands WHERE product_id = $1 AND parent_id IS NULL", productID).Scan(&mainStand.ID, &mainStand.Name)
-	if err != nil {
-		return mainStand, nil, err
-	}
-
-	// Поиск дочерних стендов
-	rows, err := db.Query("SELECT name FROM Stands WHERE product_id = $1 AND parent_id IS NOT NULL", productID)
-	if err != nil {
-		return mainStand, nil, err
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var childStand string
-		if err := rows.Scan(&childStand); err != nil {
-			return mainStand, nil, err
-		}
-		childStands = append(childStands, childStand)
-	}
-
-	if err := rows.Err(); err != nil {
-		return mainStand, nil, err
-	}
-
-	return mainStand, childStands, nil
-}

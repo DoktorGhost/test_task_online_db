@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS Stands (
     product_id INT,
     parent_id INT,
     FOREIGN KEY (product_id) REFERENCES Products(product_id),
-    FOREIGN KEY (stand_id) REFERENCES Stand_name(stand_id),
-    FOREIGN KEY (parent_id) REFERENCES Stand_name(stand_id)
+    FOREIGN KEY (stand_id) REFERENCES Stand_name(stand_id)
+    --FOREIGN KEY (parent_id) REFERENCES Stand_name(stand_id)
 );
 
 
@@ -64,14 +64,14 @@ INSERT INTO Stand_name (stand_id, name) VALUES (3, 'Стеллаж В');
 INSERT INTO Stand_name (stand_id, name) VALUES (4, 'Стеллаж З');
 INSERT INTO Stand_name (stand_id, name) VALUES (5, 'Стеллаж Ж');
 
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 1, NULL);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 2, NULL);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (2, 3, NULL);
+INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 1, 0);
+INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 2, 0);
+INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (2, 3, 0);
 INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (3, 3, 2);
 INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (4, 3, 2);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 4, NULL);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 5, NULL);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 6, NULL);
+INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 4, 0);
+INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 5, 0);
+INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 6, 0);
 INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 5, 1);
 
 INSERT INTO Order_details (order_id, product_id, count) VALUES (10, 1, 2);

@@ -12,7 +12,7 @@ import (
 func main() {
 	//_ = database.InitDB()
 	db := database.InitDB()
-	//database.ExecuteSchemaSQL(db)
+	database.ExecuteSchemaSQL(db)
 
 	args := os.Args
 
@@ -32,10 +32,11 @@ func main() {
 		//arguments = append(arguments, num)
 		fmt.Println("Прочитанное значение:", num)
 		rows, err := db.Query(`
-    SELECT Products.name, Products.product_id, Order_details.order_id, Order_details.count
+    SELECT Stands.stand_id, Stand_name.name, Products.name, Products.product_id, Order_details.order_id, Order_details.count, Stands.parent_id
     FROM Order_details
     JOIN Products ON Order_details.product_id = Products.product_id
     JOIN Stands ON Order_details.product_id = Stands.product_id
+	JOIN Stand_name ON Stands.stand_id = Stand_name.stand_id
     WHERE Order_details.order_id = $1
 `, num)
 		if err != nil {
@@ -46,12 +47,13 @@ func main() {
 		// Обработка результатов запроса
 		for rows.Next() {
 			var productName string
-			var productID, orderID, count int
-			if err := rows.Scan(&productName, &productID, &orderID, &count); err != nil {
+			var standsID, productID, orderID, count, parentId int
+			var standsName string
+			if err := rows.Scan(&standsID, &standsName, &productName, &productID, &orderID, &count, &parentId); err != nil {
 				log.Fatalf("Ошибка при сканировании строки результата: %v\n", err)
 			}
-			fmt.Println("productName", productName, "productID", productID, "orderID", orderID, "count", count)
-			// Далее обрабатываем данные...
+			fmt.Println("standsID", standsID, "standsName", standsName, "productName", productName, "productID", productID, "orderID", orderID, "count", count, "parentId", parentId)
+
 		}
 
 	}
