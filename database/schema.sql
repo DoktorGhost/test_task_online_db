@@ -16,11 +16,10 @@ CREATE TABLE IF NOT EXISTS Stand_name (
 CREATE TABLE IF NOT EXISTS Stands (
     id SERIAL PRIMARY KEY,
     stand_id INT,
-    product_id INT,
-    parent_id INT,
+    product_id INT, 
+    parent BOOLEAN,
     FOREIGN KEY (product_id) REFERENCES Products(product_id),
     FOREIGN KEY (stand_id) REFERENCES Stand_name(stand_id)
-    --FOREIGN KEY (parent_id) REFERENCES Stand_name(stand_id)
 );
 
 
@@ -58,21 +57,21 @@ INSERT INTO Orders (order_id, client_id, date) VALUES (11, 2, '2023-03-15');
 INSERT INTO Orders (order_id, client_id, date) VALUES (14, 1, '2023-02-04');
 INSERT INTO Orders (order_id, client_id, date) VALUES (15, 2, '2023-06-01');
 
-INSERT INTO Stand_name (stand_id, name) VALUES (1, 'Стеллаж A');
-INSERT INTO Stand_name (stand_id, name) VALUES (2, 'Стеллаж Б');
-INSERT INTO Stand_name (stand_id, name) VALUES (3, 'Стеллаж В');
-INSERT INTO Stand_name (stand_id, name) VALUES (4, 'Стеллаж З');
-INSERT INTO Stand_name (stand_id, name) VALUES (5, 'Стеллаж Ж');
+INSERT INTO Stand_name (stand_id, name) VALUES (1, 'A');
+INSERT INTO Stand_name (stand_id, name) VALUES (2, 'Б');
+INSERT INTO Stand_name (stand_id, name) VALUES (3, 'В');
+INSERT INTO Stand_name (stand_id, name) VALUES (4, 'З');
+INSERT INTO Stand_name (stand_id, name) VALUES (5, 'Ж');
 
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 1, 0);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 2, 0);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (2, 3, 0);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (3, 3, 2);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (4, 3, 2);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 4, 0);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 5, 0);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (5, 6, 0);
-INSERT INTO Stands (stand_id, product_id, parent_id) VALUES (1, 5, 1);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (1, 1, TRUE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (1, 2, TRUE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (2, 3, TRUE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (3, 3, FALSE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (4, 3, FALSE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (5, 4, TRUE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (5, 5, TRUE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (5, 6, TRUE);
+INSERT INTO Stands (stand_id, product_id, parent) VALUES (1, 5, FALSE);
 
 INSERT INTO Order_details (order_id, product_id, count) VALUES (10, 1, 2);
 INSERT INTO Order_details (order_id, product_id, count) VALUES (10, 3, 1);
