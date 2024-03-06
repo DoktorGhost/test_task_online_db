@@ -67,10 +67,11 @@ func main() {
 		}
 
 		// Обработка случая, когда номер заказа не найден
-		if !rows.Next() {
-			continue
-		}
-
+		/*
+			if !rows.Next() {
+				continue
+			}
+		*/
 		arguments = append(arguments, num)
 
 		defer rows.Close()
@@ -113,7 +114,7 @@ func main() {
 		}
 	}
 	var stands []key
-
+	fmt.Println(resulst)
 	for key, _ := range resulst {
 		stands = append(stands, key)
 	}
@@ -129,6 +130,9 @@ func main() {
 		for _, answ := range resulst[name] {
 			fmt.Printf("%s, (id=%d)\n", answ.productName, answ.productID)
 			fmt.Printf("заказ %d, %d шт\n", answ.orderID, answ.count)
+			if len(answ.childs) > 0 {
+				fmt.Printf("доп стеллаж: %s\n", strings.Trim(strings.Join(strings.Fields(fmt.Sprint(answ.childs)), ","), "[]"))
+			}
 			fmt.Println()
 		}
 	}
